@@ -7,6 +7,8 @@
   --color-background: var(--background);
   --color-secondary-dark: var(--secondary-dark);
   --color-secondary-light: var(--secondary-light);
+  --color-error: var(--error);
+  --color-success: var(--success);
 
   --font-family-system: 'roboto', -apple-system, sans-serif;
 }
@@ -71,6 +73,8 @@
   --background: #fefae0;
   --primary-dark: #283618;
   --primary-light: #606c38;
+  --error: #e11d48;
+  --success: #059669;
 }
 
 body {

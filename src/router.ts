@@ -3,6 +3,7 @@ import {
   createWebHistory,
   type RouteLocationNormalized,
 } from 'vue-router'
+import Auth from './pages/guest/Auth.vue'
 
 const Home = () => import('@/pages/Home.vue')
 const User = () => import('@/pages/user/User.vue')
@@ -36,14 +37,15 @@ const routes = [
   },
   {
     path: '/auth',
-    component: Home,
+    component: Auth,
 
     beforeEnter: (
       to: RouteLocationNormalized,
       from: RouteLocationNormalized,
       next: (location?: string | false | void) => void
     ) => {
-      const isLoggedIn = !!localStorage.getItem('accessToken')
+      // const isLoggedIn = !!localStorage.getItem('accessToken')
+      const isLoggedIn = false
 
       if (isLoggedIn) {
         next('/dashboard')
