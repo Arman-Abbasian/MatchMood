@@ -3,6 +3,8 @@ import InputComp from '@/components/InputComp.vue'
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { UsersIcon } from '@heroicons/vue/24/outline'
+import { supabase } from '@/supabaseClient'
+import type { SignupInterface } from '@/@types/auth'
 
 const schema = Yup.object({
   name: Yup.string()
@@ -14,8 +16,29 @@ const schema = Yup.object({
     .min(6, 'At least 6 characters'),
 })
 
-const onSubmit = (values: any) => {
-  console.log(values)
+async function signUp(values: SignupInterface) {
+  const { data, error } = await supabase.auth.signUp({
+    email: values.email,
+    password: values.password,
+  })
+
+  if (error) throw error
+
+  const userId = data.user?.id
+
+  if (userId) {
+    const { error: insertError } = await supabase.from('profiles').insert({
+      id: userId,
+      name: values.name,
+    })
+
+    if (insertError) throw insertError
+  }
+
+  return data
+}
+const onSubmit = async (values: any) => {
+  await signUp(values)
 }
 </script>
 

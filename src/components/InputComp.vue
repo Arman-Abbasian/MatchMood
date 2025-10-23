@@ -18,7 +18,7 @@ const props = defineProps<{
         :type="type || 'text'"
         :id="name"
         :placeholder="placeholder"
-        class="border p-2 w-full rounded focus:outline-none focus:ring focus:ring-blue-300"
+        class="border p-2 w-full rounded-lg focus:outline-none focus:ring focus:ring-blue-300"
       />
       <!-- Icon -->
       <span class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500">
