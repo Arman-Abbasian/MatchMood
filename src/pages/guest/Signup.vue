@@ -4,8 +4,8 @@ import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import { UsersIcon } from '@heroicons/vue/24/outline'
 import type { SignupInterface } from '@/@types/auth'
-import { register } from '@/api/auth/auth-api'
-import { makeNewUser } from '@/api/user/user-api'
+import { useSignUpMutation } from '@/api/auth/auth-queries'
+import { useMakeNewUserMutation } from '@/api/user/user-queries'
 
 const schema = Yup.object({
   name: Yup.string()
@@ -17,13 +17,22 @@ const schema = Yup.object({
     .min(6, 'At least 6 characters'),
 })
 
+const signupMutation = useSignUpMutation()
+const makeNewUser = useMakeNewUserMutation()
 async function registerNewUser(values: SignupInterface) {
-  const { data: registerData, error: registerError } = await register(values)
-  if (registerData) {
-    const { data: makeNewUserData, error: makeNewUserError } =
-      await makeNewUser(registerData, values.name)
-  } else {
-    console.log('Registration Error:', registerError)
+  try {
+    const { user } = await signupMutation.mutateAsync(values)
+    console.log('Result:', user)
+    if (user) {
+      await makeNewUser.mutateAsync({
+        userId: user.id,
+        name: values.name,
+      })
+    } else {
+      console.log('Registration Error')
+    }
+  } catch (err) {
+    console.error('Error:', err)
   }
 }
 

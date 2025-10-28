@@ -1,12 +1,16 @@
 import { supabase } from '@/supabaseClient'
 
-export async function makeNewUser(
-  userId: string,
+export async function makeNewUser({
+  userId,
+  name,
+}: {
+  userId: string
   name: string
-): Promise<{ data: any; error: any }> {
+}) {
   const { data, error } = await supabase.from('profiles').insert({
     id: userId,
     name,
   })
-  return { data, error }
+  if (error) throw new Error(error.message)
+  return data
 }
