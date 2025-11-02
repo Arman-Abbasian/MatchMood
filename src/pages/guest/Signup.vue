@@ -6,6 +6,7 @@ import { UsersIcon } from '@heroicons/vue/24/outline'
 import type { SignupInterface } from '@/@types/auth'
 import { useSignUpMutation } from '@/api/auth/auth-queries'
 import { useMakeNewUserMutation } from '@/api/user/user-queries'
+import { toast } from 'vue3-toastify'
 
 const schema = Yup.object({
   name: Yup.string()
@@ -19,20 +20,22 @@ const schema = Yup.object({
 
 const signupMutation = useSignUpMutation()
 const makeNewUser = useMakeNewUserMutation()
+
 async function registerNewUser(values: SignupInterface) {
   try {
     const { user } = await signupMutation.mutateAsync(values)
-    console.log('Result:', user)
     if (user) {
-      await makeNewUser.mutateAsync({
+      const result = await makeNewUser.mutateAsync({
         userId: user.id,
         name: values.name,
       })
+      console.log(result)
     } else {
-      console.log('Registration Error')
+      toast.error('Registration Error')
     }
-  } catch (err) {
-    console.error('Error:', err)
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : String(err)
+    toast.error(message)
   }
 }
 
@@ -72,6 +75,7 @@ const onSubmit = async (values: any) => {
       label="Password"
       placeholder="Enter your password"
       icon="fa-solid fa-lock"
+      di
     />
 
     <button
