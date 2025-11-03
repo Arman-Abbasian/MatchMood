@@ -12,3 +12,23 @@ export function useMakeNewUserMutation() {
     },
   })
 }
+
+// export function useCheckUserQuery() {
+//   const query = useQuery({
+//     queryKey: ['checkUser'],
+//     queryFn: checkUser,
+//     retry: false,
+//   })
+
+//   watch(query.data, (data) => {
+//     if (data) {
+//       return data
+//     }
+//   })
+
+//   watch(query.error, (error) => {
+//     if (error) {
+//       return error
+//     }
+//   })
+// }

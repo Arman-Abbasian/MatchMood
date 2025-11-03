@@ -7,6 +7,9 @@ import type { SignupInterface } from '@/@types/auth'
 import { useSignUpMutation } from '@/api/auth/auth-queries'
 import { useMakeNewUserMutation } from '@/api/user/user-queries'
 import { toast } from 'vue3-toastify'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const schema = Yup.object({
   name: Yup.string()
@@ -25,11 +28,12 @@ async function registerNewUser(values: SignupInterface) {
   try {
     const { user } = await signupMutation.mutateAsync(values)
     if (user) {
-      const result = await makeNewUser.mutateAsync({
+      await makeNewUser.mutateAsync({
         userId: user.id,
         name: values.name,
       })
-      console.log(result)
+      toast.success('signup successfully')
+      router.push(`/user`)
     } else {
       toast.error('Registration Error')
     }

@@ -1,9 +1,6 @@
-import {
-  createRouter,
-  createWebHistory,
-  type RouteLocationNormalized,
-} from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Auth from './pages/guest/Auth.vue'
+import { supabase } from './supabaseClient'
 
 const Home = () => import('@/pages/Home.vue')
 const User = () => import('@/pages/user/User.vue')
@@ -20,11 +17,11 @@ const routes = [
   {
     path: '/user',
     component: User,
-    beforeEnter: (
-      to: RouteLocationNormalized,
-      from: RouteLocationNormalized
-    ) => {
-      console.log(to, from)
+    async beforeEnter() {
+      const { data, error } = await supabase.auth.getUser()
+      if (error || !data.user) {
+        return '/login'
+      }
       return true
     },
     children: [
@@ -39,21 +36,12 @@ const routes = [
     path: '/auth',
     component: Auth,
 
-    beforeEnter: (
-      to: RouteLocationNormalized,
-      from: RouteLocationNormalized,
-      next: (location?: string | false | void) => void
-    ) => {
-      // const isLoggedIn = !!localStorage.getItem('accessToken')
-      const isLoggedIn = false
-
-      if (isLoggedIn) {
-        next('/dashboard')
-      } else if (to.path === '/auth') {
-        next('/auth/login')
-      } else {
-        next()
+    async beforeEnter() {
+      const { data, error } = await supabase.auth.getUser()
+      if (error || !data.user) {
+        return true
       }
+      return '/user'
     },
     children: [
       { path: 'login', component: Login },
