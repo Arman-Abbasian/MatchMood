@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue'
+import { reactive, ref, watch, watchEffect } from 'vue'
 import rocket from '../assets/images/rocket.png'
 
 const abilityOptions = [
@@ -39,6 +39,18 @@ const name = ref('sina')
 const showMeHandler = (a: string) => {
   alert(a)
 }
+
+watchEffect(() => {
+  console.log(formData) // هر بار که formData.name تغییر کنه، اجرا می‌شه
+})
+
+watch(
+  formData,
+  (newValue) => {
+    console.log('new value:', newValue)
+  },
+  { deep: true }
+)
 </script>
 
 <template>

@@ -24,7 +24,7 @@ const schema = Yup.object({
 const signupMutation = useSignUpMutation()
 const makeNewUser = useMakeNewUserMutation()
 
-async function registerNewUser(values: SignupInterface) {
+async function signupNewUser(values: SignupInterface) {
   try {
     const { user } = await signupMutation.mutateAsync(values)
     if (user) {
@@ -44,7 +44,7 @@ async function registerNewUser(values: SignupInterface) {
 }
 
 const onSubmit = async (values: any) => {
-  await registerNewUser(values)
+  await signupNewUser(values)
 }
 </script>
 
@@ -88,6 +88,7 @@ const onSubmit = async (values: any) => {
     >
       Submit
     </button>
+    <RouterLink to="/auth/login">login</RouterLink>
   </Form>
 </template>
 <style scoped></style>

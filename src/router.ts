@@ -20,7 +20,7 @@ const routes = [
     async beforeEnter() {
       const { data, error } = await supabase.auth.getUser()
       if (error || !data.user) {
-        return '/login'
+        return '/auth/login'
       }
       return true
     },
