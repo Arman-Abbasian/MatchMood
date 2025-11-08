@@ -25,7 +25,7 @@ const routes = [
       return true
     },
     children: [
-      { path: '/', component: Statistics },
+      { path: '', component: Statistics },
       { path: 'profile', component: Profile },
       { path: 'addReminder', component: AddReminder },
       { path: 'reminderList', component: ReminderList },
