@@ -29,7 +29,7 @@ const routes = [
       { path: 'profile', component: Profile },
       { path: 'addReminder', component: AddReminder },
       { path: 'reminderList', component: ReminderList },
-      { path: ':reminderId', component: ReminderDetail },
+      { path: 'reminderDetail/:reminderId', component: ReminderDetail },
     ],
   },
   {
