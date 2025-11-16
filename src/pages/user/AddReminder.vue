@@ -2,10 +2,11 @@
 import InputComp from '@/components/InputComp.vue'
 import { Field, useForm } from 'vee-validate'
 import * as Yup from 'yup'
-import { UsersIcon } from '@heroicons/vue/24/outline'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
-import { watchEffect } from 'vue'
+import { computed } from 'vue'
+import SelectComp from '@/components/SelectComp.vue'
+import { useGetAllSports } from '@/api/global/global-queries'
 
 const schema = Yup.object({
   sport: Yup.string().required('Sport is required'),
@@ -17,6 +18,8 @@ const schema = Yup.object({
   mood: Yup.string().required('mood is required'),
 })
 
+const { data } = useGetAllSports()
+
 const { handleSubmit, values } = useForm({
   validationSchema: schema,
   initialValues: {
@@ -27,13 +30,15 @@ const { handleSubmit, values } = useForm({
   },
 })
 
-// ✅ تغییرات رو ببینید
-watchEffect(() => {
-  console.log('📝 Form Values:', values)
-})
-
 const onSubmit = handleSubmit((formValues) => {
   console.log('✅ Form submitted:', formValues)
+})
+
+const sportsList = computed(() => {
+  console.log('📋 Computing sportsList, data:', data.value)
+
+  if (!data.value) return []
+  return [...data.value]
 })
 </script>
 
@@ -43,11 +48,13 @@ const onSubmit = handleSubmit((formValues) => {
     class="max-w-md mx-auto p-6 bg-white rounded shadow space-y-4"
   >
     <!-- Sport Select box -->
-    <InputComp name="sport" placeholder="Choose a sport">
-      <template #icon>
-        <UsersIcon class="w-5 h-5 text-gray-500" />
-      </template>
-    </InputComp>
+    <SelectComp
+      name="sport"
+      label="Sport"
+      :options="sportsList"
+      :return-id="true"
+      placeholder="Search and select a sport..."
+    />
 
     <!-- Date Picker -->
     <Field name="date" v-slot="{ value, handleChange, handleBlur, errors }">
