@@ -1,67 +1,111 @@
 <script setup lang="ts">
 import InputComp from '@/components/InputComp.vue'
-import { Form } from 'vee-validate'
+import { Field, useForm } from 'vee-validate'
 import * as Yup from 'yup'
 import { UsersIcon } from '@heroicons/vue/24/outline'
+import { VueDatePicker } from '@vuepic/vue-datepicker'
+import '@vuepic/vue-datepicker/dist/main.css'
+import { watchEffect } from 'vue'
 
 const schema = Yup.object({
-  sport: Yup.string().required('sport is required'),
-  description: Yup.string().required('description is required'),
-  spirit: Yup.string().required('spirit is required'),
+  sport: Yup.string().required('Sport is required'),
+  date: Yup.date()
+    .required('Date is required')
+    .nullable()
+    .typeError('Please select a valid date'),
+  description: Yup.string().required('Description is required'),
+  mood: Yup.string().required('mood is required'),
 })
 
-const onSubmit = async (values: any) => {
-  console.log(values)
-}
+const { handleSubmit, values } = useForm({
+  validationSchema: schema,
+  initialValues: {
+    mood: '0',
+    description: '',
+    sport: '',
+    date: null,
+  },
+})
+
+// ✅ تغییرات رو ببینید
+watchEffect(() => {
+  console.log('📝 Form Values:', values)
+})
+
+const onSubmit = handleSubmit((formValues) => {
+  console.log('✅ Form submitted:', formValues)
+})
 </script>
 
 <template>
-  <Form
+  <form
     @submit="onSubmit"
-    :validation-schema="schema"
-    class="max-w-md mx-auto p-6 bg-white rounded shadow"
-    :initial-values="{ spirit: '0', description: '', sport: '' }"
+    class="max-w-md mx-auto p-6 bg-white rounded shadow space-y-4"
   >
-    <InputComp
-      name="sport"
-      label="sport"
-      placeholder="choose a sport"
-      icon="fa-solid fa-user"
-    >
-      <template #icon> <UsersIcon class="w-5 h-5 text-gray-500" /> </template
-    ></InputComp>
+    <!-- Sport Select box -->
+    <InputComp name="sport" placeholder="Choose a sport">
+      <template #icon>
+        <UsersIcon class="w-5 h-5 text-gray-500" />
+      </template>
+    </InputComp>
 
+    <!-- Date Picker -->
+    <Field name="date" v-slot="{ value, handleChange, handleBlur, errors }">
+      <div class="mb-4">
+        <VueDatePicker
+          :model-value="value"
+          @update:model-value="
+            (newValue) => {
+              console.log('Date selected:', newValue)
+              handleChange(newValue)
+            }
+          "
+          @blur="handleBlur"
+          :enable-time-picker="false"
+          placeholder="Select date"
+          format="yyyy-MM-dd"
+          auto-apply
+          :clearable="true"
+        />
+
+        <span v-if="errors[0]" class="text-red-500 text-sm mt-1 block">
+          {{ errors[0] }}{{ value }}
+          {{ JSON.stringify(errors) }}
+        </span>
+      </div>
+    </Field>
+
+    <!-- Description Textarea -->
     <InputComp
       name="description"
-      label="description"
       placeholder="Describe your reminder..."
       as="textarea"
-      class="!h-48"
+      class="!h-32"
     />
-    <div class="flex items-center gap-4">
-      <InputComp
-        name="spirit"
-        label="happy"
-        placeholder="Describe your reminder..."
-        type="radio"
-        value="0"
-      />
-      <InputComp
-        name="spirit"
-        label="sad"
-        placeholder="Describe your reminder..."
-        type="radio"
-        value="1"
-      />
+
+    <!-- mood Radio Buttons -->
+    <div class="space-y-2">
+      <label class="block text-sm font-medium text-gray-700">
+        Mood <span class="text-red-500">*</span>
+      </label>
+      <div class="flex items-center gap-6">
+        <InputComp name="mood" label="Happy 😊" type="radio" value="0" />
+        <InputComp name="mood" label="Sad 😔" type="radio" value="1" />
+      </div>
     </div>
 
+    <!-- Submit Button -->
     <button
       type="submit"
-      class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition"
+      class="bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition duration-200 font-medium"
     >
       Submit
     </button>
-    <RouterLink to="/auth/login">login</RouterLink>
-  </Form>
+
+    <!-- Debug: نمایش مقادیر -->
+    <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm border">
+      <p class="font-semibold mb-2">Current Values:</p>
+      <pre class="text-xs">{{ JSON.stringify(values, null, 2) }}</pre>
+    </div>
+  </form>
 </template>
-<style scoped></style>

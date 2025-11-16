@@ -13,6 +13,7 @@
     "@supabase/supabase-js": "^2.76.1",
     "@tailwindcss/vite": "^4.1.14",
     "@tanstack/vue-query": "^5.90.5",
+    "@vuepic/vue-datepicker": "^12.0.4",
     "axios": "^1.12.2",
     "tailwindcss": "^4.1.14",
     "vee-validate": "^4.15.1",

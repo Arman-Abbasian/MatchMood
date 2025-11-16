@@ -5,6 +5,7 @@ import { router } from './router'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import { VueDatePicker } from '@vuepic/vue-datepicker'
 
 const app = createApp(App)
 app.use(Vue3Toastify, {
@@ -12,4 +13,5 @@ app.use(Vue3Toastify, {
 } as ToastContainerOptions)
 app.use(router)
 app.use(VueQueryPlugin)
+app.component('VueDatePicker', VueDatePicker)
 app.mount('#app')
