@@ -6,8 +6,8 @@
       <ul class="flex flex-col gap-8">
         <li><router-link to="">statistics</router-link></li>
         <li><router-link to="profile">profile</router-link></li>
-        <li><router-link to="addReminder">add reminder</router-link></li>
-        <li><router-link to="reminderList">reminder list</router-link></li>
+        <li><router-link to="addMemory">add Memory</router-link></li>
+        <li><router-link to="MemoryList">Memory list</router-link></li>
       </ul>
     </div>
     <div class="col-span-9 overflow-auto">

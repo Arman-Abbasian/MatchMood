@@ -16,6 +16,7 @@ const schema = Yup.object({
     .typeError('Please select a valid date'),
   description: Yup.string().required('Description is required'),
   mood: Yup.string().required('mood is required'),
+  visibility: Yup.string().required('visibility is required'),
 })
 
 const { data } = useGetAllSports()
@@ -24,6 +25,7 @@ const { handleSubmit, values } = useForm({
   validationSchema: schema,
   initialValues: {
     mood: '0',
+    visibility: '0',
     description: '',
     sport: '',
     date: null,
@@ -85,7 +87,7 @@ const sportsList = computed(() => {
     <!-- Description Textarea -->
     <InputComp
       name="description"
-      placeholder="Describe your reminder..."
+      placeholder="Describe your memory..."
       as="textarea"
       class="!h-32"
     />
@@ -98,6 +100,18 @@ const sportsList = computed(() => {
       <div class="flex items-center gap-6">
         <InputComp name="mood" label="Happy 😊" type="radio" value="0" />
         <InputComp name="mood" label="Sad 😔" type="radio" value="1" />
+      </div>
+      <label class="block text-sm font-medium text-gray-700">
+        visibility <span class="text-red-500">*</span>
+      </label>
+      <div class="flex items-center gap-6">
+        <InputComp name="visibility" label="public 🔓" type="radio" value="0" />
+        <InputComp
+          name="visibility"
+          label="Private 🔒"
+          type="radio"
+          value="1"
+        />
       </div>
     </div>
 
