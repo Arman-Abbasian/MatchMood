@@ -8,6 +8,7 @@ import { computed } from 'vue'
 import SelectComp from '@/components/SelectComp.vue'
 import { useGetAllSports } from '@/api/global/global-queries'
 import { useMakeNewMemoryMutation } from '@/api/reminder/memory-queries'
+import { useGetUserQuery } from '@/api/user/user-queries'
 
 //---types
 type FormValuesType = {
@@ -15,6 +16,7 @@ type FormValuesType = {
   visibility: '0' | '1'
   description: string
   sport_id: number
+  user_id: string
   date: string
 }
 
@@ -32,6 +34,7 @@ const schema = Yup.object({
 
 //APIs
 const { data } = useGetAllSports()
+const { data: GetUser } = useGetUserQuery()
 const { mutateAsync: MakeNewMemory, isPending: MakeNewMemoryLoading } =
   useMakeNewMemoryMutation()
 
@@ -43,6 +46,7 @@ const { handleSubmit, values } = useForm<FormValuesType>({
     visibility: '0',
     description: '',
     sport_id: 0,
+    user_id: GetUser.value?.user.id,
     date: '',
   },
 })

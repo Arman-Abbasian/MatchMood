@@ -8,7 +8,7 @@ export async function makeNewUser({
   name: string
 }) {
   const { data, error } = await supabase
-    .from('profiles')
+    .from('users')
     .insert({
       id: userId,
       name,
@@ -19,7 +19,7 @@ export async function makeNewUser({
   return data
 }
 
-export async function checkUser() {
+export async function getUser() {
   const { data, error } = await supabase.auth.getUser()
   if (error) throw new Error(error.message)
   return data
