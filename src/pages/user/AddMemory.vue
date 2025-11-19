@@ -7,38 +7,53 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import { computed } from 'vue'
 import SelectComp from '@/components/SelectComp.vue'
 import { useGetAllSports } from '@/api/global/global-queries'
+import { useMakeNewMemoryMutation } from '@/api/reminder/memory-queries'
 
+//---types
+type FormValuesType = {
+  mood: '0' | '1'
+  visibility: '0' | '1'
+  description: string
+  sport_id: number
+  date: string
+}
+
+//---schema
 const schema = Yup.object({
-  sport: Yup.string().required('Sport is required'),
+  sport_id: Yup.number().required('Sport is required'),
   date: Yup.date()
     .required('Date is required')
     .nullable()
     .typeError('Please select a valid date'),
   description: Yup.string().required('Description is required'),
-  mood: Yup.string().required('mood is required'),
-  visibility: Yup.string().required('visibility is required'),
+  mood: Yup.string().oneOf(['0', '1']).required('mood is required'),
+  visibility: Yup.string().oneOf(['0', '1']).required('visibility is required'),
 })
 
+//APIs
 const { data } = useGetAllSports()
+const { mutateAsync: MakeNewMemory, isPending: MakeNewMemoryLoading } =
+  useMakeNewMemoryMutation()
 
-const { handleSubmit, values } = useForm({
+//Methods
+const { handleSubmit, values } = useForm<FormValuesType>({
   validationSchema: schema,
   initialValues: {
     mood: '0',
     visibility: '0',
     description: '',
-    sport: '',
-    date: null,
+    sport_id: 0,
+    date: '',
   },
 })
 
-const onSubmit = handleSubmit((formValues) => {
+const onSubmit = handleSubmit(async (formValues) => {
   console.log('✅ Form submitted:', formValues)
+  await MakeNewMemory(formValues)
 })
 
+//computed
 const sportsList = computed(() => {
-  console.log('📋 Computing sportsList, data:', data.value)
-
   if (!data.value) return []
   return [...data.value]
 })
@@ -51,7 +66,7 @@ const sportsList = computed(() => {
   >
     <!-- Sport Select box -->
     <SelectComp
-      name="sport"
+      name="sport_id"
       label="Sport"
       :options="sportsList"
       :return-id="true"
