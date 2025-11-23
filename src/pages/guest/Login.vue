@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import InputComp from '@/components/InputComp.vue'
+import InputComp from '@/components/common/InputComp.vue'
 import { Form } from 'vee-validate'
 import * as Yup from 'yup'
 import type { LoginInterface } from '@/@types/auth'

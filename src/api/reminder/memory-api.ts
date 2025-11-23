@@ -38,7 +38,13 @@ export async function getAllUserMemories() {
   }
   const { data, error } = await supabase
     .from('memories')
-    .select()
+    .select(
+      `
+      id,date,description,visibility,mood,
+      sport:sports(id,name),
+      user:users(id,name)
+         `
+    )
     .eq('user_id', userData?.user.id)
   if (error) throw new Error(error.message)
   return data

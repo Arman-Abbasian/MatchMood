@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import InputComp from '@/components/InputComp.vue'
+import InputComp from '@/components/common/InputComp.vue'
 import { Field, useForm } from 'vee-validate'
 import * as Yup from 'yup'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
 import '@vuepic/vue-datepicker/dist/main.css'
 import { computed } from 'vue'
-import SelectComp from '@/components/SelectComp.vue'
+import SelectComp from '@/components/common/SelectComp.vue'
 import { useGetAllSports } from '@/api/global/global-queries'
 import { useMakeNewMemoryMutation } from '@/api/reminder/memory-queries'
 import { useGetUserQuery } from '@/api/user/user-queries'
