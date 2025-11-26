@@ -49,3 +49,18 @@ export async function getAllUserMemories() {
   if (error) throw new Error(error.message)
   return data
 }
+
+export async function getAllPublicMemories() {
+  const { data, error } = await supabase
+    .from('memories')
+    .select(
+      `
+      id,date,description,visibility,mood,
+      sport:sports(id,name),
+      user:users(id,name)
+         `
+    )
+    .eq('visibility', '0')
+  if (error) throw new Error(error.message)
+  return data
+}

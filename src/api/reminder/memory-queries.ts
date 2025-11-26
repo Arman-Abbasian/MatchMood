@@ -1,5 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { getAllUserMemories, makeNewMemory } from './memory-api'
+import {
+  getAllPublicMemories,
+  getAllUserMemories,
+  makeNewMemory,
+} from './memory-api'
 
 export function useMakeNewMemoryMutation() {
   return useMutation({
@@ -17,5 +21,12 @@ export function useGetAllUserMemories() {
   return useQuery({
     queryKey: ['memories'],
     queryFn: getAllUserMemories,
+  })
+}
+
+export function useGetAllPublicMemories() {
+  return useQuery({
+    queryKey: ['memories'],
+    queryFn: getAllPublicMemories,
   })
 }

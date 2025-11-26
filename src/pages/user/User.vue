@@ -8,6 +8,8 @@
         <li><router-link to="profile">profile</router-link></li>
         <li><router-link to="addMemory">add Memory</router-link></li>
         <li><router-link to="MemoryList">Memory list</router-link></li>
+        <li><router-link to="/">Home</router-link></li>
+        <li>logout</li>
       </ul>
     </div>
     <div class="col-span-9 overflow-auto">

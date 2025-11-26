@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { getUser, makeNewUser } from './user-api'
+import { getUser, getUserData, makeNewUser } from './user-api'
 
 export function useMakeNewUserMutation() {
   return useMutation({
@@ -17,5 +17,12 @@ export function useGetUserQuery() {
   return useQuery({
     queryKey: ['user'],
     queryFn: getUser,
+  })
+}
+
+export function useGetUserDataQuery() {
+  return useQuery({
+    queryKey: ['user'],
+    queryFn: getUserData,
   })
 }

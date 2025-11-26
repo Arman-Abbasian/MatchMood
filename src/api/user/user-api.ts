@@ -24,3 +24,24 @@ export async function getUser() {
   if (error) throw new Error(error.message)
   return data
 }
+
+export async function getUserData() {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
+
+  if (error || !user) {
+    if (error) throw new Error(error.message)
+    return
+  }
+
+  const { data: userData, error: userError } = await supabase
+    .from('users')
+    .select('*')
+    .eq('id', user.id)
+    .single()
+
+  if (error) throw new Error(userError?.message)
+  return userData
+}
