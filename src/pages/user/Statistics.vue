@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useGetUserDataQuery } from '@/api/user/user-queries'
+</script>
 
 <template>
   <div>Statistics Page</div>

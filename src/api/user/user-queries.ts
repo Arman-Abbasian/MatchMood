@@ -22,7 +22,7 @@ export function useGetUserQuery() {
 
 export function useGetUserDataQuery() {
   return useQuery({
-    queryKey: ['user'],
+    queryKey: ['userData'],
     queryFn: getUserData,
   })
 }
