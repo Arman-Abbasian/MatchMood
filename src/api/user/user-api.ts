@@ -25,6 +25,41 @@ export async function getUser() {
   return data
 }
 
+export async function getUserStatistics() {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
+
+  if (error || !user) {
+    if (error) throw new Error(error.message)
+    return
+  }
+  const { data: userStatistics, error: userStatisticsError } =
+    await supabase.rpc('get_user_memory_stats', {
+      p_user_id: user.id,
+    })
+  if (error) throw new Error(userStatisticsError?.message)
+  return userStatistics
+}
+
+export async function getUserDailyMemoriesCount() {
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser()
+  if (error || !user) {
+    if (error) throw new Error(error.message)
+    return
+  }
+  const { data: userDailyMemories, error: userDailyMemoriesError } =
+    await supabase.rpc('get_user_daily_memories', {
+      p_user_id: user.id,
+    })
+  if (error) throw new Error(userDailyMemoriesError?.message)
+  return userDailyMemories
+}
+
 export async function getUserData() {
   const {
     data: { user },

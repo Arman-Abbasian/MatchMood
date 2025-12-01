@@ -6,6 +6,7 @@ import { VueQueryPlugin } from '@tanstack/vue-query'
 import Vue3Toastify, { type ToastContainerOptions } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
 import { VueDatePicker } from '@vuepic/vue-datepicker'
+import './plugins/chart'
 
 const app = createApp(App)
 app.use(Vue3Toastify, {

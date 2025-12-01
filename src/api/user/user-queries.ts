@@ -1,5 +1,11 @@
 import { useMutation, useQuery } from '@tanstack/vue-query'
-import { getUser, getUserData, makeNewUser } from './user-api'
+import {
+  getUser,
+  getUserDailyMemoriesCount,
+  getUserData,
+  getUserStatistics,
+  makeNewUser,
+} from './user-api'
 
 export function useMakeNewUserMutation() {
   return useMutation({
@@ -24,5 +30,19 @@ export function useGetUserDataQuery() {
   return useQuery({
     queryKey: ['userData'],
     queryFn: getUserData,
+  })
+}
+
+export function useGetUserStatisticsQuery() {
+  return useQuery({
+    queryKey: ['GetUserStatistics'],
+    queryFn: getUserStatistics,
+  })
+}
+
+export function useGetUserDailyMemoriesCountQuery() {
+  return useQuery({
+    queryKey: ['GetUserDailyMemoriesCount'],
+    queryFn: getUserDailyMemoriesCount,
   })
 }
