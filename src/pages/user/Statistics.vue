@@ -3,6 +3,7 @@ import {
   useGetUserDailyMemoriesCountQuery,
   useGetUserStatisticsQuery,
 } from '@/api/user/user-queries'
+import type { ChartOptions } from 'chart.js'
 import { computed, watchEffect } from 'vue'
 import { Line } from 'vue-chartjs'
 
@@ -43,17 +44,21 @@ const data = computed(() => ({
     },
   ],
 }))
-const options = {
+
+const options: ChartOptions<'line'> = {
   responsive: true,
   maintainAspectRatio: false,
   scales: {
+    x: {
+      type: 'category' as const,
+    },
     y: {
-      type: 'linear',
+      type: 'linear' as const,
+      beginAtZero: true,
       ticks: {
         stepSize: 1,
         precision: 0,
       },
-      beginAtZero: true,
     },
   },
 }
