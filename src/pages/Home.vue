@@ -4,6 +4,7 @@ import { useGetAllPublicMemories } from '@/api/reminder/memory-queries'
 import { useGetUserDataQuery } from '@/api/user/user-queries'
 import { useGetAllUserStatisticsQuery } from '@/api/global/global-queries'
 import { watch } from 'vue'
+import StatisticCard from '@/ui/StatisticCard.vue'
 
 const { data: GetUserData, isFetching: GetUserDataLoading } =
   useGetUserDataQuery()
@@ -21,7 +22,7 @@ watch(
 
 <template>
   <header
-    class="h-20 shadow-xl flex justify-between items-center py-2 px-4 mb-10 bg-amber-200"
+    class="h-20 shadow-xl flex justify-between items-center py-2 px-4 mb-10 bg-primary-500"
     :class="{ 'blur-md': GetUserDataLoading }"
   >
     <p v-if="GetUserData">{{ `Hi ${GetUserData.name}` }}</p>
@@ -31,11 +32,31 @@ watch(
   </header>
   <div class="px-4">
     <div class="flex items-center flex-wrap gap-4">
-      <p>all Memories: {{ GetAllUserStatistics?.total }}</p>
-      <p>happy Memories: {{ GetAllUserStatistics?.happy }}</p>
-      <p>sad Memories: {{ GetAllUserStatistics?.sad }}</p>
-      <p>public Memories: {{ GetAllUserStatistics?.public }}</p>
-      <p>private Memories: {{ GetAllUserStatistics?.private }}</p>
+      <StatisticCard
+        title="All Memories"
+        :value="GetAllUserStatistics?.total"
+        containerClass="bg-info"
+      />
+      <StatisticCard
+        title="Happy Memories"
+        :value="GetAllUserStatistics?.happy"
+        containerClass="bg-success"
+      />
+      <StatisticCard
+        title="Sad Memories"
+        :value="GetAllUserStatistics?.sad"
+        containerClass="bg-error"
+      />
+      <StatisticCard
+        title="Public Memories"
+        :value="GetAllUserStatistics?.public"
+        containerClass="bg-text-muted"
+      />
+      <StatisticCard
+        title="Private Memories"
+        :value="GetAllUserStatistics?.private"
+        containerClass="bg-warning"
+      />
     </div>
     <div>
       <MemoryList :useQueryFn="useGetAllPublicMemories" />
