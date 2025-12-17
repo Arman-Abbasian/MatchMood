@@ -71,10 +71,9 @@ const sportsList = computed(() => {
     <!-- Sport Select box -->
     <SelectComp
       name="sport_id"
-      label="Sport"
       :options="sportsList"
       :return-id="true"
-      placeholder="Search and select a sport..."
+      placeholder="choose a sport..."
     />
 
     <!-- Date Picker -->
@@ -108,7 +107,7 @@ const sportsList = computed(() => {
       name="description"
       placeholder="Describe your memory..."
       as="textarea"
-      class="!h-32"
+      class="!h-32 text-text-main"
     />
 
     <!-- mood Radio Buttons -->
@@ -141,11 +140,5 @@ const sportsList = computed(() => {
     >
       Submit
     </button>
-
-    <!-- Debug: نمایش مقادیر -->
-    <div class="mt-4 p-4 bg-gray-50 rounded-lg text-sm border">
-      <p class="font-semibold mb-2">Current Values:</p>
-      <pre class="text-xs">{{ JSON.stringify(values, null, 2) }}</pre>
-    </div>
   </form>
 </template>

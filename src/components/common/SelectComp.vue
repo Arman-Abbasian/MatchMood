@@ -9,6 +9,7 @@ import {
   ComboboxOption,
 } from '@headlessui/vue'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 type Option = {
   id: string | number
@@ -23,6 +24,7 @@ const props = defineProps<{
   placeholder?: string
   // اگر می‌خواهید id بفرستید بذارید true، اگر کل object رو می‌خواهید false
   returnId?: boolean
+  isRequired?: boolean
 }>()
 
 const query = ref('')
@@ -78,7 +80,7 @@ const isSelected = (option: Option, fieldValue: any) => {
   <Field :name="name" v-slot="{ field, errors, handleChange }">
     <div class="mb-4">
       <label v-if="label" class="block text-sm font-medium text-gray-700 mb-1">
-        {{ label }} <span class="text-red-500">*</span>
+        {{ label }} <span v-show="isRequired" class="text-red-500">*</span>
       </label>
 
       <Combobox
@@ -88,18 +90,18 @@ const isSelected = (option: Option, fieldValue: any) => {
       >
         <div class="relative">
           <div
-            class="relative w-full cursor-default overflow-hidden rounded-lg bg-white text-left border border-gray-300 focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent transition-all"
+            class="relative w-full cursor-default overflow-hidden rounded-lg bg-transparent border border-primary-100"
           >
             <ComboboxInput
-              class="w-full border-none py-2 pl-3 pr-10 text-sm leading-5 text-gray-900 focus:ring-0 focus:outline-none"
+              class="w-full border-none p-3 text-sm text-text-main focus:ring-0 focus:outline-none"
               :display-value="displayValue"
               @change="query = $event.target.value"
               :placeholder="placeholder || 'Search...'"
             />
             <ComboboxButton
-              class="absolute inset-y-0 right-0 flex items-center pr-2"
+              class="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer"
             >
-              <ChevronUpDownIcon
+              <ChevronDownIcon
                 class="h-5 w-5 text-gray-400"
                 aria-hidden="true"
               />
@@ -112,13 +114,13 @@ const isSelected = (option: Option, fieldValue: any) => {
             leave-to-class="opacity-0"
           >
             <ComboboxOptions
-              class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
+              class="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white shadow-lg ring-1 ring-primary-500 ring-opacity-5 focus:outline-none text-sm"
             >
               <div
                 v-if="filteredOptions.length === 0 && query !== ''"
-                class="relative cursor-default select-none py-2 px-4 text-gray-700"
+                class="relative cursor-default select-none py-2 px-4 text-text-muted"
               >
-                Nothing found.
+                Nothing found...
               </div>
 
               <ComboboxOption
@@ -130,8 +132,8 @@ const isSelected = (option: Option, fieldValue: any) => {
               >
                 <li
                   :class="[
-                    'relative cursor-pointer select-none py-2 pl-10 pr-4',
-                    active ? 'bg-blue-600 text-white' : 'text-gray-900',
+                    'relative cursor-pointer select-none py-2 pr-1 pl-6',
+                    active ? 'bg-primary-500 text-white' : 'text-text-muted',
                   ]"
                 >
                   <span
@@ -147,8 +149,8 @@ const isSelected = (option: Option, fieldValue: any) => {
                   <span
                     v-if="isSelected(option, field.value)"
                     :class="[
-                      'absolute inset-y-0 left-0 flex items-center pl-3',
-                      active ? 'text-white' : 'text-blue-600',
+                      'absolute inset-y-0 left-0 flex items-center pl-1',
+                      active ? 'text-white' : 'text-primary-300',
                     ]"
                   >
                     <CheckIcon class="h-5 w-5" aria-hidden="true" />
