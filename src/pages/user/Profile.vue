@@ -1,5 +1,10 @@
 <script setup lang="ts">
 import { useGetUserDataQuery, useGetUserQuery } from '@/api/user/user-queries'
+import {
+  CalendarDateRangeIcon,
+  UserIcon,
+  EnvelopeIcon,
+} from '@heroicons/vue/24/outline'
 import dayjs from 'dayjs'
 import { watchEffect } from 'vue'
 
@@ -12,17 +17,31 @@ watchEffect(() => {
 </script>
 
 <template>
-  <div class="flex flex-col gap-8">
-    <p>name: {{ GetUserData?.name }}</p>
-    <p>email: {{ GetUser?.user?.email }}</p>
-    <p>
-      create your account at:
-      {{ dayjs(GetUser?.user?.created_at).format('YYYY/MM/DD HH:mm') }}
-    </p>
-    <p>
-      last update your account at:
-      {{ dayjs(GetUser?.user?.updated_at).format('YYYY/MM/DD HH:mm') }}
-    </p>
+  <div class="flex flex-col gap-8 text-text-main">
+    <div class="flex items-center gap-1">
+      <user-icon class="w-6 text-text-main" />
+      <p>name:</p>
+      <p class="text-primary-500">{{ GetUserData?.name }}</p>
+    </div>
+    <div class="flex items-center gap-1">
+      <envelope-icon class="w-6 text-text-main" />
+      <p>email:</p>
+      <p class="text-primary-500">{{ GetUser?.user?.email }}</p>
+    </div>
+    <div class="flex items-center gap-1">
+      <calendar-date-range-icon class="w-6 text-text-main" />
+      <p>account created at:</p>
+      <p class="text-primary-500">
+        {{ dayjs(GetUser?.user?.created_at).format('YYYY/MM/DD HH:mm') }}
+      </p>
+    </div>
+    <div class="flex items-center gap-1">
+      <calendar-date-range-icon class="w-6 text-text-main" />
+      <p>last update your account at:</p>
+      <p class="text-primary-500">
+        {{ dayjs(GetUser?.user?.updated_at).format('YYYY/MM/DD HH:mm') }}
+      </p>
+    </div>
   </div>
 </template>
 <style scoped></style>

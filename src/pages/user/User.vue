@@ -61,7 +61,7 @@ import {
         </li>
       </ul>
     </div>
-    <div class="col-span-10 overflow-auto bg-primary-50">
+    <div class="col-span-10 overflow-auto bg-primary-50 p-4">
       <router-view></router-view>
     </div>
   </div>

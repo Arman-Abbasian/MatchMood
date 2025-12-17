@@ -3,6 +3,7 @@ import {
   useGetUserDailyMemoriesCountQuery,
   useGetUserStatisticsQuery,
 } from '@/api/user/user-queries'
+import StatisticCard from '@/ui/StatisticCard.vue'
 import type { ChartOptions } from 'chart.js'
 import { computed, watchEffect } from 'vue'
 import { Line } from 'vue-chartjs'
@@ -66,11 +67,31 @@ const options: ChartOptions<'line'> = {
 
 <template>
   <div class="flex items-center flex-wrap gap-4">
-    <p>all Memories: {{ GetUserStatistics?.total }}</p>
-    <p>happy Memories: {{ GetUserStatistics?.happy }}</p>
-    <p>sad Memories: {{ GetUserStatistics?.sad }}</p>
-    <p>public Memories: {{ GetUserStatistics?.public }}</p>
-    <p>private Memories: {{ GetUserStatistics?.private }}</p>
+    <StatisticCard
+      title="All Memories"
+      :value="GetUserStatistics?.total"
+      containerClass="bg-info"
+    />
+    <StatisticCard
+      title="Happy Memories"
+      :value="GetUserStatistics?.happy"
+      containerClass="bg-success"
+    />
+    <StatisticCard
+      title="Sad Memories"
+      :value="GetUserStatistics?.sad"
+      containerClass="bg-error"
+    />
+    <StatisticCard
+      title="Public Memories"
+      :value="GetUserStatistics?.public"
+      containerClass="bg-text-muted"
+    />
+    <StatisticCard
+      title="Private Memories"
+      :value="GetUserStatistics?.private"
+      containerClass="bg-warning"
+    />
   </div>
   <!-- chart section -->
   <div style="height: 300px">
