@@ -91,6 +91,15 @@
   --color-error: #e11d48;
   --color-warning: #f59e0b;
   --color-info: #0891b2;
+
+  /* vue date picker input styles */
+  --dp-input-padding: 10px 1200px;
+  --dp-input-icon-padding: 40px;
+  --dp-border-radius: 8px;
+  --dp-font-size: 14px;
+  --dp-border-color: #d1d5db;
+  --dp-border-color-hover: #94a3b8;
+  --dp-border-color-focus: #2563eb;
 }
 
 body {

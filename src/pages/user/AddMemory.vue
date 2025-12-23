@@ -83,21 +83,17 @@ const sportsList = computed(() => {
           :model-value="value"
           @update:model-value="
             (newValue) => {
-              console.log('Date selected:', newValue)
               handleChange(newValue)
             }
           "
           @blur="handleBlur"
-          :enable-time-picker="false"
           placeholder="Select date"
           format="yyyy-MM-dd"
-          auto-apply
           :clearable="true"
+          input-class="w-full border border-primary-100 rounded-lg p-3 text-sm text-text-main focus:ring-0 focus:outline-none"
         />
-
-        <span v-if="errors[0]" class="text-red-500 text-sm mt-1 block">
-          {{ errors[0] }}{{ value }}
-          {{ JSON.stringify(errors) }}
+        <span v-if="errors[0]" class="text-red-500 text-sm mt-2 block">
+          {{ errors[0] }}
         </span>
       </div>
     </Field>
