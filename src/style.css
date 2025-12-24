@@ -91,15 +91,6 @@
   --color-error: #e11d48;
   --color-warning: #f59e0b;
   --color-info: #0891b2;
-
-  /* vue date picker input styles */
-  --dp-input-padding: 10px 1200px;
-  --dp-input-icon-padding: 40px;
-  --dp-border-radius: 8px;
-  --dp-font-size: 14px;
-  --dp-border-color: #d1d5db;
-  --dp-border-color-hover: #94a3b8;
-  --dp-border-color-focus: #2563eb;
 }
 
 body {
@@ -113,4 +104,34 @@ body {
 h1,
 h2 {
   font-family: 'Bebas Neue', sans-serif;
+}
+
+/* vue date picker styles */
+.dp__theme_light {
+  /* input  */
+  --dp-input-padding: 10px;
+  --dp-input-icon-padding: 40px;
+  --dp-border-radius: 8px;
+  --dp-font-size: 14px;
+  --dp-border-color: var(--color-primary-100) !important;
+  --dp-border-color-hover: var(--color-primary-100) !important;
+  --dp-border-color-focus: var(--color-primary-100) !important;
+
+  /* Action buttons popup */
+  --dp-primary-color: var(--color-primary-100) !important;
+  --dp-primary-text-color: var(--color-primary-500) !important;
+
+  /* secondary / hover  popup*/
+  --dp-hover-color: var(--color-primary-100) !important;
+  --dp-hover-text-color: var(--color-primary-500) !important;
+
+  /* today */
+  --dp-today-color: #d1a080;
+
+  /* range */
+}
+/* just for input vue date picker */
+.dp__menu {
+  background-color: var(--color-primary-50) !important;
+  --dp-text-color: var(--color-primary-500) !important;
 }
