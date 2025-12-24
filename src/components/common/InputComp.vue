@@ -52,7 +52,7 @@ const props = defineProps<{
           :type="props.type || 'text'"
           :as="props.as || 'input'"
           :placeholder="props.placeholder"
-          class="border border-gray-300 p-2 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="border border-primary-100 p-2 w-full rounded-lg focus:outline-none placeholder:text-sm"
           :class="[props.class, props.as === 'textarea' ? 'resize-none' : '']"
         />
 

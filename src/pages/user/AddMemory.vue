@@ -103,7 +103,7 @@ const sportsList = computed(() => {
       name="description"
       placeholder="Describe your memory..."
       as="textarea"
-      class="!h-32 text-text-main"
+      class="!h-32 text-text-main border-primary-100 :placeholder:text-sm"
     />
 
     <!-- mood Radio Buttons -->
