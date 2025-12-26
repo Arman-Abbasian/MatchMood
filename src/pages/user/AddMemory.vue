@@ -9,6 +9,7 @@ import SelectComp from '@/components/common/SelectComp.vue'
 import { useGetAllSports } from '@/api/global/global-queries'
 import { useMakeNewMemoryMutation } from '@/api/reminder/memory-queries'
 import { useGetUserQuery } from '@/api/user/user-queries'
+import ActionButton from '@/components/common/ActionButton.vue'
 
 //---types
 type FormValuesType = {
@@ -130,11 +131,6 @@ const sportsList = computed(() => {
     </div>
 
     <!-- Submit Button -->
-    <button
-      type="submit"
-      class="bg-blue-600 text-white w-full py-2 rounded-lg hover:bg-blue-700 transition duration-200 font-medium"
-    >
-      Submit
-    </button>
+    <ActionButton text="Add" />
   </form>
 </template>
