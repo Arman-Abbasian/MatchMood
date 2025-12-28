@@ -40,26 +40,31 @@ watch(
         title="All Memories"
         :value="GetAllUserStatistics?.total"
         containerClass="bg-info"
+        :loading="GetAllUserStatisticsLoading"
       />
       <StatisticCard
         title="Happy Memories"
         :value="GetAllUserStatistics?.happy"
         containerClass="bg-success"
+        :loading="GetAllUserStatisticsLoading"
       />
       <StatisticCard
         title="Sad Memories"
         :value="GetAllUserStatistics?.sad"
         containerClass="bg-error"
+        :loading="GetAllUserStatisticsLoading"
       />
       <StatisticCard
         title="Public Memories"
         :value="GetAllUserStatistics?.public"
         containerClass="bg-text-muted"
+        :loading="GetAllUserStatisticsLoading"
       />
       <StatisticCard
         title="Private Memories"
         :value="GetAllUserStatistics?.private"
         containerClass="bg-warning"
+        :loading="GetAllUserStatisticsLoading"
       />
     </div>
     <div>

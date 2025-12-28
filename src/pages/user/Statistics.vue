@@ -71,26 +71,31 @@ const options: ChartOptions<'line'> = {
       title="All Memories"
       :value="GetUserStatistics?.total"
       containerClass="bg-info"
+      :loading="GetUserStatisticsLoading"
     />
     <StatisticCard
       title="Happy Memories"
       :value="GetUserStatistics?.happy"
       containerClass="bg-success"
+      :loading="GetUserStatisticsLoading"
     />
     <StatisticCard
       title="Sad Memories"
       :value="GetUserStatistics?.sad"
       containerClass="bg-error"
+      :loading="GetUserStatisticsLoading"
     />
     <StatisticCard
       title="Public Memories"
       :value="GetUserStatistics?.public"
       containerClass="bg-text-muted"
+      :loading="GetUserStatisticsLoading"
     />
     <StatisticCard
       title="Private Memories"
       :value="GetUserStatistics?.private"
       containerClass="bg-warning"
+      :loading="GetUserStatisticsLoading"
     />
   </div>
   <!-- chart section -->

@@ -2,6 +2,7 @@
 import dayjs from 'dayjs'
 import happyIcon from '@/assets/images/happyIcon.png'
 import sadIcon from '@/assets/images/sadIcon.png'
+import Spinner from '../common/Spinner.vue'
 
 const props = defineProps<{
   useQueryFn: () => any
@@ -12,7 +13,7 @@ const { data, isLoading } = props.useQueryFn()
 
 <template>
   <div>
-    <div v-if="isLoading">Loading...</div>
+    <div v-if="isLoading"><Spinner class="bg-primary-500" /></div>
 
     <div v-else class="flex items-center flex-wrap gap-10">
       <div

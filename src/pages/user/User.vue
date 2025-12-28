@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useLogoutMutation } from '@/api/auth/auth-queries'
 import {
   ArrowLongLeftIcon,
   ChartBarSquareIcon,
@@ -7,6 +8,16 @@ import {
   PlusIcon,
   UserIcon,
 } from '@heroicons/vue/24/outline'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+const LogoutMutation = useLogoutMutation()
+
+const logoutHanlder = async () => {
+  debugger
+  await LogoutMutation.mutateAsync()
+  router.push('/auth/login')
+}
 </script>
 
 <template>
@@ -54,7 +65,7 @@ import {
           >
         </li>
         <li>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2" @click="logoutHanlder">
             <arrow-long-left-icon class="w-6" />
             <p>Logout</p>
           </div>
