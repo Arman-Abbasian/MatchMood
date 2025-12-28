@@ -10,6 +10,7 @@ import { useGetAllSports } from '@/api/global/global-queries'
 import { useMakeNewMemoryMutation } from '@/api/reminder/memory-queries'
 import { useGetUserQuery } from '@/api/user/user-queries'
 import ActionButton from '@/components/common/ActionButton.vue'
+import { toast } from 'vue3-toastify'
 
 //---types
 type FormValuesType = {
@@ -40,7 +41,7 @@ const { mutateAsync: MakeNewMemory, isPending: MakeNewMemoryLoading } =
   useMakeNewMemoryMutation()
 
 //Methods
-const { handleSubmit, values } = useForm<FormValuesType>({
+const { handleSubmit, resetForm } = useForm<FormValuesType>({
   validationSchema: schema,
   initialValues: {
     mood: '0',
@@ -53,8 +54,17 @@ const { handleSubmit, values } = useForm<FormValuesType>({
 })
 
 const onSubmit = handleSubmit(async (formValues) => {
-  console.log('✅ Form submitted:', formValues)
-  await MakeNewMemory(formValues)
+  try {
+    const response = await MakeNewMemory(formValues)
+    if (response?.id) {
+      toast.success('memory Added successfully')
+      resetForm()
+    } else {
+      toast.success('memory could not Added')
+    }
+  } catch (error) {
+    toast.error('some problem occured')
+  }
 })
 
 //computed
@@ -131,6 +141,6 @@ const sportsList = computed(() => {
     </div>
 
     <!-- Submit Button -->
-    <ActionButton text="Add" />
+    <ActionButton text="Add" :loading="MakeNewMemoryLoading" />
   </form>
 </template>

@@ -1,13 +1,17 @@
 <script setup lang="ts">
-defineProps<{ text: string }>()
+import Spinner from './Spinner.vue'
+
+defineProps<{ text: string; loading?: boolean; disabled?: boolean }>()
 </script>
 
 <template>
   <button
     type="submit"
-    class="bg-primary-500 text-white w-full py-2 rounded-lg hover:bg-primary-100 hover:text-primary-500 transition duration-200 font-medium cursor-pointer"
+    class="flex justify-center items-center bg-primary-500 text-white w-full py-2 rounded-lg hover:bg-primary-100 transition duration-200 font-medium cursor-pointer hover:text-primary-500 h-12"
+    :disabled="loading || disabled"
   >
-    {{ text }}
+    <Spinner v-if="loading" />
+    <span v-else>{{ text }}</span>
   </button>
 </template>
 
