@@ -65,7 +65,10 @@ const logoutHanlder = async () => {
           >
         </li>
         <li>
-          <div class="flex items-center gap-2" @click="logoutHanlder">
+          <div
+            class="flex items-center gap-2 cursor-pointer"
+            @click="logoutHanlder"
+          >
             <arrow-long-left-icon class="w-6" />
             <p>Logout</p>
           </div>

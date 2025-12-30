@@ -59,24 +59,21 @@ const props = defineProps<{
         <!-- Icon (فقط برای input) -->
         <span
           v-if="$slots.icon && props.as !== 'textarea'"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none"
+          class="absolute right-3 top-1/2 -translate-y-1/2 text-primary-500 pointer-events-none"
         >
           <slot name="icon" />
         </span>
       </div>
 
       <!-- Error message -->
-      <ErrorMessage
-        :name="props.name"
-        class="text-red-500 text-sm mt-1 block"
-      />
+      <ErrorMessage :name="props.name" class="text-error text-sm mt-1 block" />
     </div>
 
     <!-- Error برای Radio/Checkbox (فقط یک بار نمایش بده) -->
     <ErrorMessage
       v-if="props.type === 'radio' || props.type === 'checkbox'"
       :name="props.name"
-      class="text-red-500 text-sm mt-1 block"
+      class="text-error text-sm mt-1 block"
     />
   </div>
 </template>

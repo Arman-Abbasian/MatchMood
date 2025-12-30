@@ -6,6 +6,7 @@ import type { LoginInterface } from '@/@types/auth'
 import { useLoginMutation } from '@/api/auth/auth-queries'
 import { toast } from 'vue3-toastify'
 import { useRouter } from 'vue-router'
+import ActionButton from '@/components/common/ActionButton.vue'
 
 const router = useRouter()
 
@@ -14,11 +15,11 @@ const schema = Yup.object({
   password: Yup.string().required('Password is required'),
 })
 
-const LoginMutation = useLoginMutation()
+const { mutateAsync: Login, isPending: LoginLoading } = useLoginMutation()
 
 async function loginNewUser(values: LoginInterface) {
   try {
-    await LoginMutation.mutateAsync(values)
+    await Login(values)
     toast.success('login successfully')
     router.push('/user')
   } catch (err: unknown) {
@@ -36,9 +37,11 @@ const onSubmit = async (values: any) => {
   <Form
     @submit="onSubmit"
     :validation-schema="schema"
-    class="max-w-md mx-auto p-6 bg-white rounded shadow"
+    class="max-w-md mx-auto p-6 bg-white rounded shadow-2xl backdrop-blur-2xl mt-8"
   >
-    <h2 class="text-2xl font-semibold mb-4 text-center">Login Form</h2>
+    <h2 class="text-2xl font-semibold mb-4 text-center text-primary-500">
+      Login Form
+    </h2>
 
     <InputComp
       name="email"
@@ -54,16 +57,14 @@ const onSubmit = async (values: any) => {
       label="Password"
       placeholder="Enter your password"
       icon="fa-solid fa-lock"
-      di
     />
 
-    <button
-      type="submit"
-      class="bg-blue-600 text-white w-full py-2 rounded hover:bg-blue-700 transition"
-    >
-      login
-    </button>
-    <RouterLink to="/auth/signup">sign up</RouterLink>
+    <ActionButton text="login" :loading="LoginLoading" />
+    <div class="w-full flex justify-end mt-4">
+      <RouterLink to="/auth/signup" class="underline text-info"
+        >sign up</RouterLink
+      >
+    </div>
   </Form>
 </template>
 <style scoped></style>
