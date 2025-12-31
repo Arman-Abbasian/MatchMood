@@ -15,7 +15,10 @@ const { data, isLoading } = props.useQueryFn()
   <div>
     <div v-if="isLoading"><Spinner class="bg-primary-500" /></div>
 
-    <div v-else class="flex items-center flex-wrap gap-10">
+    <div
+      v-else
+      class="flex items-center flex-wrap justify-center lg:justify-start gap-10"
+    >
       <div
         v-for="item in data"
         :key="item.id"

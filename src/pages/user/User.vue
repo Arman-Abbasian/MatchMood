@@ -21,8 +21,10 @@ const logoutHanlder = async () => {
 </script>
 
 <template>
-  <div class="grid grid-cols-12 h-full bg-red-200 text-white">
-    <div class="col-span-2 bg-primary-500 overflow-auto">
+  <div class="h-screen grid grid-cols-12 bg-red-200 text-white">
+    <div
+      class="hidden md:block md:col-span-2 bg-primary-500 overflow-auto h-full"
+    >
       <ul class="flex flex-col gap-8 pl-3 py-4">
         <li>
           <router-link to=""
@@ -75,8 +77,15 @@ const logoutHanlder = async () => {
         </li>
       </ul>
     </div>
-    <div class="col-span-10 overflow-auto bg-primary-50 p-4">
-      <router-view></router-view>
+    <div class="col-span-12 md:col-span-10 overflow-auto bg-primary-50">
+      <div
+        class="md:hidden flex items-center p-4 sticky top-0 h-20 bg-primary-500 w-full"
+      >
+        <button class="text-white">☰</button>
+      </div>
+      <div class="flex flex-col justify-center bg-primary-50 mt-2 md:p-4">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 </template>

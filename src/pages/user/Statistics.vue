@@ -66,7 +66,9 @@ const options: ChartOptions<'line'> = {
 </script>
 
 <template>
-  <div class="flex items-center flex-wrap gap-4">
+  <div
+    class="flex items-center flex-wrap gap-4 md:justify-start justify-center"
+  >
     <StatisticCard
       title="All Memories"
       :value="GetUserStatistics?.total"
