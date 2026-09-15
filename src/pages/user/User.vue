@@ -1,22 +1,11 @@
 <script setup lang="ts">
-import { useLogoutMutation } from '@/api/auth/auth-queries'
-import {
-  ArrowLongLeftIcon,
-  ChartBarSquareIcon,
-  HomeIcon,
-  ListBulletIcon,
-  PlusIcon,
-  UserIcon,
-} from '@heroicons/vue/24/outline'
-import { useRouter } from 'vue-router'
+import UserLinks from '@/components/shared/UserLinks.vue'
+import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
+import { ref } from 'vue'
 
-const router = useRouter()
-const LogoutMutation = useLogoutMutation()
-
-const logoutHanlder = async () => {
-  debugger
-  await LogoutMutation.mutateAsync()
-  router.push('/auth/login')
+let isOpen = ref(false)
+const toggleMenu = () => {
+  isOpen.value = !isOpen.value
 }
 </script>
 
@@ -25,63 +14,20 @@ const logoutHanlder = async () => {
     <div
       class="hidden md:block md:col-span-2 bg-primary-500 overflow-auto h-full"
     >
-      <ul class="flex flex-col gap-8 pl-3 py-4">
-        <li>
-          <router-link to=""
-            ><div class="flex items-center gap-2">
-              <chart-bar-square-icon class="w-6" />
-              <p>statistics</p>
-            </div></router-link
-          >
-        </li>
-        <li>
-          <router-link to="profile"
-            ><div class="flex items-center gap-2">
-              <user-icon class="w-6" />
-              <p>profile</p>
-            </div></router-link
-          >
-        </li>
-        <li>
-          <router-link to="addMemory"
-            ><div class="flex items-center gap-2">
-              <plus-icon class="w-6" />
-              <p>add memory</p>
-            </div></router-link
-          >
-        </li>
-        <li>
-          <router-link to="MemoryList"
-            ><div class="flex items-center gap-2">
-              <list-bullet-icon class="w-6" />
-              <p>memory list</p>
-            </div></router-link
-          >
-        </li>
-        <li>
-          <router-link to="/"
-            ><div class="flex items-center gap-2">
-              <home-icon class="w-6" />
-              <p>Home</p>
-            </div></router-link
-          >
-        </li>
-        <li>
-          <div
-            class="flex items-center gap-2 cursor-pointer"
-            @click="logoutHanlder"
-          >
-            <arrow-long-left-icon class="w-6" />
-            <p>Logout</p>
-          </div>
-        </li>
-      </ul>
+      <div class="pl-3 py-4"><user-links /></div>
     </div>
     <div class="col-span-12 md:col-span-10 overflow-auto bg-primary-50">
       <div
-        class="md:hidden flex items-center p-4 sticky top-0 h-20 bg-primary-500 w-full"
+        class="md:hidden sticky top-0 h-16 bg-primary-500 w-full"
+        :class="isOpen && 'h-screen'"
       >
-        <button class="text-white">☰</button>
+        <button class="text-white flex p-4" @click="toggleMenu" v-if="isOpen">
+          <x-mark-icon class="w-10" />
+        </button>
+        <button class="text-white flex p-4" @click="toggleMenu" v-else>
+          <bars3-icon class="w-10" />
+        </button>
+        <div v-if="isOpen" class="pt-4 pl-6"><user-links /></div>
       </div>
       <div class="flex flex-col justify-center bg-primary-50 mt-2 md:p-4">
         <router-view></router-view>

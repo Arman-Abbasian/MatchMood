@@ -1,13 +1,28 @@
 <script setup lang="ts">
-const { logoutHandler } = defineProps<{
-  logoutHandler: () => void
-}>()
+import { useLogoutMutation } from '@/api/auth/auth-queries'
+import { useRouter } from 'vue-router'
+import {
+  ArrowLongLeftIcon,
+  ChartBarSquareIcon,
+  HomeIcon,
+  ListBulletIcon,
+  PlusIcon,
+  UserIcon,
+} from '@heroicons/vue/24/outline'
+
+const router = useRouter()
+const LogoutMutation = useLogoutMutation()
+
+const logoutHandler = async () => {
+  await LogoutMutation.mutateAsync()
+  router.push('/auth/login')
+}
 </script>
 
 <template>
-  <ul class="flex flex-col gap-8 pl-3 py-4">
+  <ul class="flex flex-col gap-8">
     <li>
-      <router-link to=""
+      <router-link to="/user"
         ><div class="flex items-center gap-2">
           <chart-bar-square-icon class="w-6" />
           <p>statistics</p>
@@ -15,7 +30,7 @@ const { logoutHandler } = defineProps<{
       >
     </li>
     <li>
-      <router-link to="profile"
+      <router-link to="/user/profile"
         ><div class="flex items-center gap-2">
           <user-icon class="w-6" />
           <p>profile</p>
@@ -23,7 +38,7 @@ const { logoutHandler } = defineProps<{
       >
     </li>
     <li>
-      <router-link to="addMemory"
+      <router-link to="/user/addMemory"
         ><div class="flex items-center gap-2">
           <plus-icon class="w-6" />
           <p>add memory</p>
@@ -31,7 +46,7 @@ const { logoutHandler } = defineProps<{
       >
     </li>
     <li>
-      <router-link to="MemoryList"
+      <router-link to="/user/MemoryList"
         ><div class="flex items-center gap-2">
           <list-bullet-icon class="w-6" />
           <p>memory list</p>

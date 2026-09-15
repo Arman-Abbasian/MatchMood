@@ -43,9 +43,10 @@ export async function getAllUserMemories() {
       id,date,description,visibility,mood,
       sport:sports(id,name),
       user:users(id,name)
-         `
+         `,
     )
     .eq('user_id', userData?.user.id)
+    .order('date', { ascending: false })
   if (error) throw new Error(error.message)
   return data
 }
@@ -58,9 +59,10 @@ export async function getAllPublicMemories() {
       id,date,description,visibility,mood,
       sport:sports(id,name),
       user:users(id,name)
-         `
+         `,
     )
     .eq('visibility', '0')
+    .order('date', { ascending: false })
   if (error) throw new Error(error.message)
   return data
 }
