@@ -22,7 +22,7 @@ const { data, isLoading } = props.useQueryFn()
       <div
         v-for="item in data"
         :key="item.id"
-        class="w-52 h-56 flex flex-col gap-4 rounded-md shadow-2xl p-4 bg-primary-300 relative text-white"
+        class="w-52 h-56 flex flex-col gap-4 rounded-md shadow-2xl p-4 relative text-white bg-gradient-to-bl from-primary-100 to-primary-500"
       >
         <p>name: {{ item.user.name }}</p>
         <p>sport: {{ item.sport.name }}</p>
