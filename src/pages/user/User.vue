@@ -1,12 +1,22 @@
 <script setup lang="ts">
 import UserLinks from '@/components/shared/UserLinks.vue'
 import { Bars3Icon, XMarkIcon } from '@heroicons/vue/24/outline'
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 
 let isOpen = ref(false)
+const route = useRoute()
+
 const toggleMenu = () => {
   isOpen.value = !isOpen.value
 }
+
+watch(
+  () => route.path,
+  () => {
+    isOpen.value = false
+  },
+)
 </script>
 
 <template>
@@ -18,7 +28,7 @@ const toggleMenu = () => {
     </div>
     <div class="col-span-12 md:col-span-10 overflow-auto bg-primary-50">
       <div
-        class="md:hidden sticky top-0 h-16 bg-primary-500 w-full"
+        class="md:hidden sticky top-0 h-16 bg-primary-500 w-full z-20"
         :class="isOpen && 'h-screen'"
       >
         <button class="text-white flex p-4" @click="toggleMenu" v-if="isOpen">

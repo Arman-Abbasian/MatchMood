@@ -17,7 +17,7 @@ watch(
   () => GetAllUserStatistics.value,
   () => {
     console.log(GetAllUserStatistics.value)
-  }
+  },
 )
 </script>
 
@@ -35,7 +35,9 @@ watch(
   </header>
   <div class="px-4">
     <h1 class="match-mood-logo mb-10 text-center">Match Mood</h1>
-    <div class="flex items-center flex-wrap gap-4">
+    <div
+      class="flex items-center flex-wrap gap-4 justify-center sm:justify-start"
+    >
       <StatisticCard
         title="All Memories"
         :value="GetAllUserStatistics?.total"
