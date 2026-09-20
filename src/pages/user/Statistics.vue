@@ -11,10 +11,7 @@ import { Line } from 'vue-chartjs'
 const { data: GetUserStatistics, isFetching: GetUserStatisticsLoading } =
   useGetUserStatisticsQuery()
 
-const {
-  data: getUserDailyMemoriesCount,
-  isFetching: getUserDailyMemoriesCountLoading,
-} = useGetUserDailyMemoriesCountQuery()
+const { data: getUserDailyMemoriesCount } = useGetUserDailyMemoriesCountQuery()
 
 watchEffect(() => {
   console.log(getUserDailyMemoriesCount.value)
@@ -24,15 +21,15 @@ watchEffect(() => {
 const labels = computed(
   () =>
     getUserDailyMemoriesCount?.value?.map(
-      (item: { day: string; memory_count: number }) => item.day
-    ) ?? []
+      (item: { day: string; memory_count: number }) => item.day,
+    ) ?? [],
 )
 
 const values = computed(
   () =>
     getUserDailyMemoriesCount?.value?.map(
-      (item: { day: string; memory_count: number }) => item.memory_count
-    ) ?? []
+      (item: { day: string; memory_count: number }) => item.memory_count,
+    ) ?? [],
 )
 const data = computed(() => ({
   labels: labels.value,

@@ -8,7 +8,7 @@ import {
   ComboboxOptions,
   ComboboxOption,
 } from '@headlessui/vue'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/vue/20/solid'
+import { CheckIcon } from '@heroicons/vue/20/solid'
 import { ChevronDownIcon } from '@heroicons/vue/24/outline'
 
 type Option = {
@@ -35,7 +35,7 @@ const filteredOptions = computed(() => {
   }
 
   return props.options.filter((option) =>
-    option.name.toLowerCase().includes(query.value.toLowerCase())
+    option.name.toLowerCase().includes(query.value.toLowerCase()),
   )
 })
 
